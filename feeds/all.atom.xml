@@ -1210,7 +1210,6 @@ git checkout source
 git add .
 git commit -m "Updated Source"
 git push origin source
-git checkout master
 git subtree push --prefix output origin master&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id="NOTE:-Adding,-committing,-and-pushing"&gt;NOTE: &lt;em&gt;Adding&lt;/em&gt;, &lt;em&gt;committing&lt;/em&gt;, and &lt;em&gt;pushing&lt;/em&gt;&lt;a class="anchor-link" href="#NOTE:-Adding,-committing,-and-pushing"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;If you are a newcomer to Git (like me), you may find this to be one of the most confusing and least well-explained components of working with Git and GitHub. Fortunately, the difference between &lt;em&gt;add&lt;/em&gt;, &lt;em&gt;commit&lt;/em&gt;, and &lt;em&gt;push&lt;/em&gt; is explained fairly well &lt;a href="http://stackoverflow.com/questions/6143285/git-add-vs-push-vs-commit"&gt;here&lt;/a&gt;:&lt;/p&gt;
 &lt;ol&gt;
@@ -1218,6 +1217,17 @@ git subtree push --prefix output origin master&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;code&gt;git commit&lt;/code&gt; commits the files that have been added and creates a new revision with a log... If you do not add any files, git will not commit anything. You can combine both actions with &lt;code&gt;git commit -a&lt;/code&gt; (which is the recommended approach)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;git push&lt;/code&gt; pushes your changes to the remote repository&lt;/li&gt;
 &lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
