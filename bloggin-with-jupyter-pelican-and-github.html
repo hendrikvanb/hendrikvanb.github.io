@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="english" class="no-js lt-ie9 lt-ie8 lt-ie7" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/BlogPosting"> <![endif]-->
+<!--[if IE 7]>         <html lang="english" class="no-js lt-ie9 lt-ie8" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/BlogPosting"> <![endif]-->
+<!--[if IE 8]>         <html lang="english" class="no-js lt-ie9" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/BlogPosting"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="english" class="no-js" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/BlogPosting"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Blogging with Jupyter, Pelican, and GitHub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Getting this blog set up was no easy feat. After some preliminary reading online, I came away with the impression that the easiest/best way of creating my desired static coding/research/data-science blog would be by using Jupyter, Pelican, and GitHub together. After all, I found several blogs online that used this approach to great effect. However, as someone who is still very new to Python, has had limited experience with any kind of programming and zero exposure to Git(Hub) (read: "utterly bewildered by"), making sense of the plethora of (often conflicting) online blogposts, tutorials, and guides for using such an approach became an arduous task. After MANY failed attempts at getting the blog up by following the available tutorials online (to the letter), I finally managed it by integrating various steps across several sources (source1">
+<link rel="shortcut icon" href="http://hendrikvanb.github.io/" type="">
+<meta name="author" content="Hendrik van Broekhuizen">
+<meta name="copyright" content="Hendrik van Broekhuizen">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta property="og:site_name" content="hendrikvanb" />
+
+<meta property="og:title" content="Blogging with jupyter, pelican, and github" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hendrikvanb.github.io/bloggin-with-jupyter-pelican-and-github.html" />
+<meta name="twitter:title" content="Blogging with jupyter, pelican, and github" />
+<meta name="twitter:url" content="http://hendrikvanb.github.io/bloggin-with-jupyter-pelican-and-github.html" />
+<meta itemprop="url" content="http://hendrikvanb.github.io/bloggin-with-jupyter-pelican-and-github.html" />
+<meta property="og:description" content="Getting this blog set up was no easy feat. After some preliminary reading online, I came away with the impression that the easiest/best way of creating my desired static coding/research/data-science blog would be by using Jupyter, Pelican, and GitHub together. After all, I found several blogs online that used this approach to great effect. However, as someone who is still very new to Python, has had limited experience with any kind of programming and zero exposure to Git(Hub) (read: &#34;utterly bewildered by&#34;), making sense of the plethora of (often conflicting) online blogposts, tutorials, and guides for using such an approach became an arduous task. After MANY failed attempts at getting the blog up by following the available tutorials online (to the letter), I finally managed it by integrating various steps across several sources (source1" />
+<meta name="twitter:description" content="Getting this blog set up was no easy feat. After some preliminary reading online, I came away with the impression that the easiest/best way of creating my desired static coding/research/data-science blog would be by using Jupyter, Pelican, and GitHub together. After all, I found several blogs online that used this approach to great effect. However, as someone who is still very new to Python, has had limited experience with any kind of programming and zero exposure to Git(Hub) (read: &#34;utterly bewildered by&#34;), making sense of the plethora of (often conflicting) online blogposts, tutorials, and guides for using such an approach became an arduous task. After MANY failed attempts at getting the blog up by following the available tutorials online (to the letter), I finally managed it by integrating various steps across several sources (source1" />
+<meta property="og:article:published_time" content="2017-05-05" />
+<meta property="og:article:author" content="Hendrik van Broekhuizen" >
+<meta property="og:article:tag" content="python">
+<meta property="og:article:tag" content="pelican">
+<meta property="og:article:tag" content="git">
+<meta property="og:article:tag" content="blogging">
+
+<link href="http://hendrikvanb.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="hendrikvanb ATOM Feed"/>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/uikit/2.23.0/css/uikit.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/uikit/2.23.0/css/components/search.min.css">
+<link rel="stylesheet" href="http://hendrikvanb.github.io/theme/css/tipuesearch.css">
+<link rel="stylesheet" href="http://hendrikvanb.github.io/theme/css/solarized.css">
+<link rel="stylesheet" href="http://hendrikvanb.github.io/theme/css/main.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+<header class=" mg-header uk-navbar uk-navbar-attached">
+
+    <div class="uk-container uk-container-center">
+
+        <a class="mg-brand uk-navbar-brand uk-hidden-small" href="http://hendrikvanb.github.io">hendrikvanb</a>
+        <div class="mg-tagline uk-navbar-content uk-hidden-small"></div>
+        <a class="uk-navbar-toggle uk-visible-small" href="#mg-offcanvas" data-uk-offcanvas></a>
+        <a class="mg-brand uk-navbar-brand uk-navbar-center uk-visible-small" href="http://hendrikvanb.github.io">hendrikvanb</a>
+
+    </div>
+</header>
+
+<main class="mg-main">
+
+<div class="uk-container uk-container-center">
+
+    <div class="uk-grid" data-uk-grid-margin>
+
+<div class="mg-container-social uk-width-medium-1-10 uk-hidden-small">
+
+
+</div>
+
+<div class="uk-width-medium-7-10">
+
+    <article class="uk-article">
+        <h1 class="uk-heading-large uk-article-title" itemprop="name">Blogging with Jupyter, Pelican, and GitHub</h1>
+        <p class="uk-article-meta"><time datetime="2017-05-05" itemprop="datePublished">Fri 05 May 2017</time> in <a href="http://hendrikvanb.github.io/category/coding.html">Coding</a></p>
+
+
+        <p class="uk-article-lead" itemprop="description">Getting this blog set up was no easy feat. After some preliminary reading online, I came away with the impression that the easiest/best way of creating my desired static coding/research/data-science blog would be by using Jupyter, Pelican, and GitHub together. After all, I found several blogs online that used this approach to great effect. However, as someone who is still very new to Python, has had limited experience with any kind of programming and zero exposure to Git(Hub) (read: "utterly bewildered by"), making sense of the plethora of (often conflicting) online blogposts, tutorials, and guides for using such an approach became an arduous task. After MANY failed attempts at getting the blog up by following the available tutorials online (to the letter), I finally managed it by integrating various steps across several sources (source1</p>
+        <section itemprop="articleBody"><style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Getting this blog set up was no easy feat.  After some preliminary reading online, I came away with the impression that the easiest/best way of creating my desired static coding/research/data-science blog would be by using Jupyter, Pelican, and GitHub together. After all, I found several blogs online that used this approach to great effect.  However, as someone who is still very new to Python, has had limited experience with any kind of programming and zero exposure to Git(Hub) (read: "utterly bewildered by"), making sense of the plethora of (often conflicting) online blogposts, tutorials, and guides for using such an approach became an arduous task.   After MANY failed attempts at getting the blog up by following the available tutorials online (to the letter), I finally managed it by integrating various steps across several sources (<a href="https://www.dataquest.io/blog/how-to-setup-a-data-science-blog/">source1</a>, <a href="http://wtbarnes.github.io/blogging-howto/">source2</a>, <a href="https://spapas.github.io/2013/10/07/pelican-static-windows/">source3</a>).</p>
+<p>I suspect the fact that I'm working on a Windows OS may have contributed to some of my struggles.  Nevertheless, I decided to write yet another guide for creating a blog using Jupyter, Pelican, and GitHub.  I do this primarily so that I can re-trace my steps if something should ever go awry with my blog (and I need to start from scratch), but also for others who may have experienced similar difficulties in getting up and running using other tutorials.  While the approach below worked for me, I unfortunately cannot garauntee that it will work for you (or, even if it does, that it is the best approach).</p>
+<p>This guide assumes that you already have Python installed on your Windows OS (I'm using the <a href="https://www.continuum.io/downloads">Anaconda</a> Python distribution on Windows 10).</p>
+<p>To get my blog up and running on GitHub Pages, I followed the following six-step process:</p>
+<ol>
+<li>Install and setup Pelican</li>
+<li>Create the blog infrastructure</li>
+<li>Install the Jupyter plugin for Pelican</li>
+<li>Create some blog content</li>
+<li>Test blog locally</li>
+<li>Deploy blog on GitHub Pages</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Step-1:-Install-and-setup-Pelican">Step 1: Install and setup Pelican<a class="anchor-link" href="#Step-1:-Install-and-setup-Pelican">¶</a></h1><p><a href="https://blog.getpelican.com/">Pelican</a> is a static site-generator written in Python. This is convenient for several reasons, not least being the fact that I plan on creating all of my blog content (i.e. posts) using Jupyter notebooks. But more about that a little later...</p>
+<h2 id="Installing-the-neccesary-Python-packages/dependencies-for-the-blog">Installing the neccesary Python packages/dependencies for the blog<a class="anchor-link" href="#Installing-the-neccesary-Python-packages/dependencies-for-the-blog">¶</a></h2><p>In order for my blog to work, I need to ensure that the following basic packages/dependencies are installed in my Python distribution: <code>pelican</code>, <code>markdown</code>, <code>jupyter</code>, and <code>ipython</code>.  I can install all of these packages at the same time by using <code>pip install</code> in an elevated command prompt:</p>
+<pre><code>pip install pelican markdown ghp-import jupyter ipython</code></pre>
+<p>However, as I already have Jupyter and IPython installed as part of my Anaconda Python distribution, I'll simply use <code>pip install</code> to add the <code>pelican</code> and <code>markdown</code> packages and subsequently update the entirety of my Python distribution:</p>
+<pre><code>pip install pelican markdown
+conda update --all</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Step-2:-Create-the-blog-infrastructure">Step 2: Create the blog infrastructure<a class="anchor-link" href="#Step-2:-Create-the-blog-infrastructure">¶</a></h1><p>Now that the preliminary setup has been completed, I'm ready to create my blog infrastructure.</p>
+<h2 id="Creating-a-local-repository-(folder)-for-my-blog">Creating a local repository (folder) for my blog<a class="anchor-link" href="#Creating-a-local-repository-(folder)-for-my-blog">¶</a></h2><p>I'll be creating al of my blog content on my local machine so the first thing I want to do is to create a new folder/directory on my local machine. This folder will contain all of my blog's content, styles, resources, and dependencies. In effect, it will be the local repository (which is how I'll refer to it henceforth) for my blog.  Ultimately, the blog will be available online at <a href="http://hendrikvanb.github.io">http://hendrikvanb.github.io</a> (if you are following this guide, you will want to replace all instances of <em>'hendrikvanb'</em> with your own github username!). For reasons that will become clearer in Step 5, I'm therefore going to create a new folder called <code>hendrikvanb.github.io</code>.  For projects like this, I like to work on the <code>D:\</code> drive on my local machine. To create my local repository here, I'll open an elevated command prompt and issue the following command(s):</p>
+<pre><code>D:
+mkdir hendrikvanb.github.io
+cd hendrikvanb.github.io</code></pre>
+<p>Now that I've also changed directories to this newly-created local repository, I'll keep the elevated command  prompt open for the next step.</p>
+<h2 id="Creating-the-basic-blog-infrastrucure-with-pelican">Creating the basic blog infrastrucure with pelican<a class="anchor-link" href="#Creating-the-basic-blog-infrastrucure-with-pelican">¶</a></h2><p>Now that the elevated command prompt is pointing to my local repository, I can proceed to have Pelican build the neccesary directory structure and files by issuing the following command:</p>
+<pre><code>pelican-quickstart</code></pre>
+<p>I will now be prompted for some information on how I wish to publish my site.  I choose the following settings:</p>
+<pre><code>> Where do you want to create your new web site? [.] 
+> What will be the title of this web site? hendrikvanb
+> Who will be the author of this web site? Hendrik van Broekhuizen
+> What will be the default language of this web site? [English] 
+> Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) n
+> Do you want to enable article pagination? (Y/n) n
+> What is your time zone? [Europe/Paris] Africa/Johannesburg
+> Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) y
+> Do you want an auto-reload & simpleHTTP script to assist with theme and site development? (Y/n) y</code></pre>
+<p>Next, there will be a series of questions relating to how I want to publish my blog. I'm going to answer no (<code>n</code>) to all (<code>FTP</code>,<code>SSH</code>,<code>Dropbox</code>,<code>S3</code>,<code>Rackspace Cloud Files</code>) except <code>GitHub Pages</code>. This will auto-generate a Makefile option to make publishing easy later on.</p>
+<p>After running <code>pelican-quickstart</code>, I now have two new folders in <code>hendrikvanb.github.io</code>, <code>content</code>, and <code>output</code>, along with several files, such as <code>pelicanconf.py</code> and <code>publishconf.py</code>. Here’s an example of what should be in the folder:</p>
+<ul>
+<li><code>content/</code></li>
+<li><code>output/</code></li>
+<li><code>.gitignore</code></li>
+<li><code>.develop_server.sh</code></li>
+<li><code>fabfile.py</code></li>
+<li><code>Makefile</code></li>
+<li><code>pelicanconf.py</code></li>
+<li><code>publishconf.py</code> </li>
+</ul>
+<p>The <code>pelicanconf.py</code> file defines all of the configuration for the site and has been pre-populated with the answers I supplied during the quickstart.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Step-3:-Installing-the-Jupyter-plugin-for-Pelican">Step 3: Installing the Jupyter plugin for Pelican<a class="anchor-link" href="#Step-3:-Installing-the-Jupyter-plugin-for-Pelican">¶</a></h1><p>Pelican doesn’t support writing blog posts using Jupyter by default. However, it is possible to extend the functionality of a Pelican webpage with the use of plugins (an official repository of plugins is maintained <a href="https://github.com/getpelican/pelican-plugins">here</a>). In order to install the required <code>pelican-ipynb</code>plugin, I need to do the following:</p>
+<ol>
+<li>Create a new folder called <code>plugins</code> inside my local repository </li>
+<li>Open a browser (I use Chrome) and navigate to <a href="https://github.com/danielfrg/pelican-ipynb">https://github.com/danielfrg/pelican-ipynb</a></li>
+<li>Click on the <em>"Clone or download button"</em>, select <em>"Dowload ZIP"</em>, and then ensure that the ZIP file gets downloaded to <code>D:\hendrikvanb.github.io\plugins</code></li>
+<li>Unzip the <code>pelican-ipynb-master.zip</code> file in the folder and name the resultant folder <code>ipynb</code>.</li>
+<li>Delete the <code>pelican-ipynb-master.zip</code> file from the folder </li>
+</ol>
+<p>In order to activate this plugin, I need to modify <code>pelicanconf.py</code> and add these lines at the bottom:</p>
+<pre><code>MARKUP = ('md', 'ipynb')
+
+PLUGIN_PATHS = ['./plugins']
+PLUGINS = ['ipynb.markup']</code></pre>
+<p>These lines tell Pelican to activate the plugin when generating HTML.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Step-4:-Create-some-blog-content">Step 4: Create some blog content<a class="anchor-link" href="#Step-4:-Create-some-blog-content">¶</a></h1><p>Pelican assumes any file inside of <code>content/</code> is a blog entry and will treat it as such. Any non-blog pages (e.g. "About", "Contact", "CV", etc.) should be placed in a subdirectory <code>content/pages/</code>. Pelican will treat these as non-chronological rather than just listing them in the blogroll.</p>
+<h2 id="Creating-non-Jupyter-pages">Creating non-Jupyter pages<a class="anchor-link" href="#Creating-non-Jupyter-pages">¶</a></h2><p>To start things off, I'll create a single non-jupyter page: <em>'about'</em>. I'll place the file at <code>...\content\pages\about.md</code> and give it the following contents:</p>
+<pre><code>---
+Title: About
+---
+
+My name is Hendrik van Broekhuizen. I may or may not have been an evil penguin overlord in a previous life.</code></pre>
+<h2 id="Creating-Jupyter-pages">Creating Jupyter pages<a class="anchor-link" href="#Creating-Jupyter-pages">¶</a></h2><p>For the initial population of the site, I'm going to include a single Jupyter notebook in the <code>content</code> folder.  in fact, I'll use the very notebook I'm writing in now!  This is as simple as copying the notebook from it's current location and putting it in the <code>D:\hendrikvanb.github.io\content</code> folder.  Crucially, however, Pelican requires some additional metadata in order to import Jupyter notebooks as posts correctly.  One way of doing this is to create a file that has the same name as my notebook, but with the extension <code>.ipynb-meta</code>. In this file, I must then include metadata entries for <code>Title</code>, <code>Slug</code>, <code>Date</code>, <code>Category</code>, <code>Tags</code>, <code>Author</code>, and <code>Summary</code>.  Once I've created this file, I must include it alongside my notebook file in the <code>content</code> folder of my local blog repository.</p>
+<p>HOWEVER, my preferred way of adding the neccesary metadata information required for Pelican is to add it directly in my Jupyter notebook by navigating to <code>Edit > Edit Notebook Metadata</code>. Here, I will add the following entries to the existing metadata:</p>
+<pre><code>Title: Blogging with Jupyter, Pelican, and GitHub
+Slug: blogging-with-jupyter-pelican-and-github
+Date: 2017-05-02 
+Category: research
+Tags: python, pelican, git
+Author: Hendrik van Broekhuizen
+Summary: How to create a blog using Jupyter, Pelican, and GitHub.</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Step-5:-Test-the-blog-locally">Step 5: Test the blog locally<a class="anchor-link" href="#Step-5:-Test-the-blog-locally">¶</a></h1><p>In order to generate HTML from the post(s) and page(s) created in Step 4, I have to run Pelican to convert all notebooks and .md files to HTML first and then run a local server to be able to view them.  This involves the following steps:</p>
+<ol>
+<li>Open an elevated command prompt </li>
+<li>Change directory (cd) to the <code>D:\hendrikvanb.github.io</code> folder</li>
+<li>Run <code>pelican content</code> to generate the HTML</li>
+<li>Switch (cd) to the <code>output</code> directory</li>
+<li>Start a server by running <code>python -m pelican.server</code></li>
+<li>Visit <code>localhost:8000</code> in chrome to preview the blog</li>
+</ol>
+<p>With a new evelated command prompt open, I can execute steps 2 - 5 like so:</p>
+<pre><code>D:
+cd hendrikvanb.github.io
+pelican content
+cd output
+python -m pelican.server</code></pre>
+<p>I should now be able to browse a listing of all the posts in my blog, along with the specific post(s)/page(s) I created at <a href="http://localhost:8000">http://localhost:8000</a>.</p>
+<h2 id="Simplifying-content-conversion-and-local-testing">Simplifying content conversion and local testing<a class="anchor-link" href="#Simplifying-content-conversion-and-local-testing">¶</a></h2><p>Each time I add or change blog content or site settings in my local repository I need to go through the process described above.  Given that I'm probably going to make changes/updates quite often, it will be nice if I can save myself the effort of having to (correctly) type out all of the neccesary command lines each time I want to update the blog.  Fortunately, I can do this by using <code>batch</code> files.  I'm going to create two new <code>batch</code> files, <code>pelrun.bat</code> and <code>pelserv.bat</code> and place them inside my local repository.</p>
+<ul>
+<li><code>pelrun.bat</code> will generate the content for my local site in the output directory. It contains the following:
+<pre><code>pelican content --debug --autoreload  --output output --settings pelicanconf.py</code></pre>
+</li>
+<li><code>pelserv.bat</code> will push the contents of the output directory to a local server. It contains the following:
+<pre><code>pushd output
+python -m pelican.server
+popd</code></pre>
+</li>
+</ul>
+<p>Once these batch files are located in my I can run them in sequence, either by double-clicking them in turn, or by opening an elevated command prompt at <code>D:\hendrikvanb.github.io</code> and issueing the following commands:</p>
+<pre><code>start pelrun.bat
+start pelserv.bat</code></pre>
+<h2 id="Changing-the-blog-theme">Changing the blog theme<a class="anchor-link" href="#Changing-the-blog-theme">¶</a></h2><p>My blog passed the local server test! However, the default Pelican theme is fairly lackluster.  Fortunately, it's fairly easy to change this.   To customize the look of your webpage, Pelican provides the <code>THEME</code> variable in <code>pelicanconf.py</code>. There are many different <a href="http://www.pelicanthemes.com/">Pelican themes</a> and an official repository is maintained <a href="https://github.com/getpelican/pelican-themes">here</a>.</p>
+<p>For now, I'm going to change my theme to the <a href="https://github.com/lucachr/pelican-mg">pelican-mg</a> theme.  To download, install, and activate this theme, I need to do the following:</p>
+<ol>
+<li>Create a <code>themes</code> folder in <code>D:\hendrikvanb.github.io</code></li>
+<li>Download and unzip the <a href="https://github.com/lucachr/pelican-mg">pelican-mg</a> theme in the <code>themes</code> folder</li>
+<li>Insert the following line in <code>pelicanconf.py</code>:
+<pre><code> THEME='themes/pelican-mg-master'</code></pre>
+</li>
+</ol>
+<p>In order for my new theme to be reflected in the local blog, I again need to re-run <code>pelrun.bat</code> and <code>pelserv.bat</code> as described above.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Step-6:-Deploy-blog-on-GitHub-Pages">Step 6: Deploy blog on GitHub Pages<a class="anchor-link" href="#Step-6:-Deploy-blog-on-GitHub-Pages">¶</a></h1><p><strong><em>WARNING:</em></strong> <em>This is the step that tripped me up the most.  To be safe, I would not even attempt this unless everything in steps 1 - 5 went smoothly. Also, before continuing, it is a very good idea to make a backup of the local repository somewhere.</em></p>
+<p>Now that I've tested my blog locally and all seems to be in order it is time to deploy it on GitHub.</p>
+<h2 id="Creating-a-GitHub-Page">Creating a GitHub Page<a class="anchor-link" href="#Creating-a-GitHub-Page">¶</a></h2><p><a href="https://pages.github.com/">Github Pages</a> is a feature of <a href="https://github.com/">Github</a> that allows you to quickly deploy a static site and let anyone access it using a unique URL. In order to make use of GitHub Pages, one first has to <a href="https://github.com/join">sign up for Github</a>.</p>
+<p>Once I'm signed up and have chosen a username (<em>'hendrikvanb'</em> in my case), I can proceed to the next step. Since I'm going to host my blog on GitHub, I need to <a href="https://github.com/new">set up a new GitHub Pages repository</a>. This involves creating a repository with the name <code>hendrikvanb.github.io</code> (again, <code>hendrikvanb</code> is my GitHub username. You will have to use your username). This is going to be my blog's online repository.</p>
+<h2 id="Installing-Git-on-Windows">Installing Git on Windows<a class="anchor-link" href="#Installing-Git-on-Windows">¶</a></h2><p>Working with GitHub Pages essentially involves getting my local blog repository and my online blog repository to communicate in specific ways.  After several failed attempts at getting this to work with GitHub's Desktop application for Windows, I'm going to instead recommend installing <a href="https://git-scm.com/download/win">git for windows</a> and following setup steps 1 - 11 on <a href="https://www.develves.net/blogs/asd/articles/using-git-with-powershell-on-windows-10/">this page</a>. This will install git on Windows and, most importantly for what follows, give me access to Git Bash which I will be using for the remainder of my blog deployment.</p>
+<h2 id="Prepping-the-contents-of-my-local-repository-for-online-deployment">Prepping the contents of my local repository for online deployment<a class="anchor-link" href="#Prepping-the-contents-of-my-local-repository-for-online-deployment">¶</a></h2><p>In order to deploy my blog on Github, I need to first modify Pelican so that the URLs point to the right spot. First, I need to edit <code>SITEURL</code> in <code>publishconf.py</code> so that it is set to <code>http://hendrikvanb.github.io</code></p>
+<p>Next, I need to convert all of the content in my local repository so that it is ready for publication online.  Following a similar approach to the conversion for local testing, I'll create a new batch file within my local repository (<code>pelpub.bat</code>):</p>
+<ul>
+<li><code>pelpub.bat</code> will generate the content for the prodution (online) site in the output directory. It contains the following:
+<pre><code>pelican content --output output --settings publishconf.py</code></pre>
+By running this batch file, I ensure that the files in the output folder are ready for publication on my GitHub repository.</li>
+</ul>
+<h2 id="Deploying-to-GitHub-branches">Deploying to GitHub branches<a class="anchor-link" href="#Deploying-to-GitHub-branches">¶</a></h2><p><strong><em>NOTE:</em></strong> <em>Much of the content in this section has been taken verbatim from <a href="https://spapas.github.io/2013/10/07/pelican-static-windows/">https://spapas.github.io/2013/10/07/pelican-static-windows/</a>.  Full credit goes to the author of this page.</em></p>
+<p>At present my GitHub repository <code>hendrikvanb.github.io</code> contains only a <code>master</code> branch.  GitHub Pages is set up in such a way that my Github page will display whatever HTML files are located in this <code>master</code> branch of the repository - i.e. <code>hendrikvanb.github.io</code> at the URL <code>hendrikvanb.github.io</code> (note that the repository name and the URL are the same!).  In other words, my goal is ultimately to get the contents for the <code>output</code> folder in my local repository to be pushed to the <code>master</code> branch of my online repository. However, I would also like to use the online repository to store the contents of my local repository under version control.  Clearly, I cannot push all of the content in <code>D:\hendrikvanb.github.io</code> to my GitHub repository as is since it will end up in the <code>master</code> branch and prevent my blog for displaying corretly.  The solution lies in creating another branch. In effect, my strategy is to use two branches on my GitHub repository:</p>
+<ol>
+<li><p><code>master</code>: This is where I will push all of the content in my <code>D:\hendrikvanb.github.io\output</code> folder.  Each time I update my blog (and converting it to be publication ready), I want to push the contents of this folder onto the <code>master</code> branch and replace any and all files that may already have been there before.</p>
+</li>
+<li><p><code>source</code>: This is where I will push all of the content in my <code>D:\hendrikvanb.github.io</code> local repository under version control - expect for the <code>output</code> folder!. By exploiting GitHub's version control system for the <code>source</code> branch I am effectively ensuring that I can always return to a previous rendition of my blog if I really need to.</p>
+</li>
+</ol>
+<h3 id="Initialising-and-populating-the-master-branch">Initialising and populating the <code>master</code> branch<a class="anchor-link" href="#Initialising-and-populating-the-master-branch">¶</a></h3><p>In order to initialise the <code>master</code> branch and populate it with the prepped contents of my local <code>output</code> folder for the first time, I need to follow several steps:</p>
+<ol>
+<li>Open Git Bash and navigate to <code>D:/hendrikvanb.github.io/output</code></li>
+<li>Initialise this folder as a git repository</li>
+<li>Add all of the contents of the folder to the queue for commiting to GitHub</li>
+<li>Commit all of the files in the queue to GitHub (with a commit message)</li>
+<li>Setup the remote repository (i.e. online repository) that I want the local repository to communicate with</li>
+<li>Push the contents of the commit onto the <code>master</code> branch, making sure to replace all files that may already be on the <code>master</code> branch.</li>
+</ol>
+<p>To execute these 6 steps, I open <strong>Git Bash</strong> and then issue the following commands:</p>
+<pre><code>cd D:
+pushd hendrikvanb.github.io/output
+git init
+git add .
+git commit -m "Initialisation and initial population"
+git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
+git push origin master --force</code></pre>
+<p>The <code>--force</code> argument in the last line ensures that any previous versions are overwritten (since I don't care about version control on my output - only my source!)</p>
+<h3 id="Initialising-and-populating-the-source-branch">Initialising and populating the <code>source</code> branch<a class="anchor-link" href="#Initialising-and-populating-the-source-branch">¶</a></h3><p>In order to initialise the <code>source</code> branch and populate it with the contents of my local <code>D:\hendrikvanb.github.io</code> respository - but not the <code>output</code> folder -  for the first time, I now need to follow these steps:</p>
+<ol>
+<li>Create a <code>.gitignore</code> file in <code>D:\hendrikvanb.github.io</code>. To ensure that the contents of the <code>output</code> folder will be exlcuded from version control, I add the following line to the <code>.gitignore</code> file:
+<pre><code>  output</code></pre>
+</li>
+<li>Open Git Bash and navigate to <code>D:/hendrikvanb.github.io</code></li>
+<li>Initialise this folder as a git repository</li>
+<li>Add all of the contents of the folder to the queue for commiting to GitHub</li>
+<li>Commit all of the files in the queue to GitHub (with a commit message)</li>
+<li>Rename the <code>master</code> branch to <code>source</code></li>
+<li>Setup the remote repository (i.e. online repository) that I want the local repository to communicate with</li>
+<li>Push the contents of the commit onto the <code>source</code> branch</li>
+</ol>
+<p>To execute steps 2 to 8, I open Git Bash and then issue the following commands:</p>
+<pre><code>cd D:
+pushd hendrikvanb.github.io
+git init
+git add .
+git commit -m "Initialisation and initial population"
+git branch -m master source
+git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
+git push origin source</code></pre>
+<h2 id="Updating-my-GitHub-Pages-blog">Updating my GitHub Pages blog<a class="anchor-link" href="#Updating-my-GitHub-Pages-blog">¶</a></h2><p>I now have two branches in my <code>hendrikvanb.github.io</code> remote repository. One is named <code>origin/master</code> which is where my actual blog will be displayed through <a href="http://hendrikvanb.github.io">http://hendrikvanb.github.io</a> and one is named <code>origin/source</code> which will contain the source of my site.</p>
+<p>Each time I want to make changes to my blog I now need to follow the following steps:</p>
+<ol>
+<li>Test the changes locally. If all is well, proceed to step 2 (not explicitly neccesary, but good practice)</li>
+<li>Run the <code>pelpub.bat</code> batch file to convert the blog output to be production ready</li>
+<li><code>Add</code>, <code>commit</code>, and <code>push</code> changes from <code>D:/hendrikvanb.github.io</code> to the <code>source</code> branch</li>
+<li><code>Add</code>, <code>commit</code>, and <code>push</code> changes from <code>D:/hendrikvanb.github.io/output</code> to the <code>master</code> branch</li>
+</ol>
+<h4 id="NOTE:-Adding,-committing,-and-pushing">NOTE: <em>Adding</em>, <em>committing</em>, and <em>pushing</em><a class="anchor-link" href="#NOTE:-Adding,-committing,-and-pushing">¶</a></h4><p>If you are a newcomer to Git (like me), you may find this to be one of the most confusing and least well-explained components of working with Git and GitHub. Fortunately, the difference between <em>add</em>, <em>commit</em>, and <em>push</em> is explained fairly well <a href="http://stackoverflow.com/questions/6143285/git-add-vs-push-vs-commit">here</a>:</p>
+<ol>
+<li><code>git add</code> adds your modified files to the queue <em>to be comitted later</em>. Files are just queued, not committed.</li>
+<li><code>git commit</code> commits the files that have been added and creates a new revision with a log... If you do not add any files, git will not commit anything. You can combine both actions with <code>git commit -a</code> (which is the recommended approach)</li>
+<li><code>git push</code> pushes your changes to the remote repository</li>
+</ol>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+</section>
+        <hr class="uk-article-divider">
+    </article>
+
+
+</div>
+
+        <div class="uk-width-medium-1-5 uk-hidden-small">
+
+            <div class="uk-panel uk-panel-box">
+                <form class="uk-search" action="search.html" data-uk-search>
+                    <input class="uk-search-field tipue_search" type="search" name="q" id="tipue_search_input" autocomplete="off" placeholder="Search...">
+                </form>
+            </div>
+
+            <div class="uk-panel uk-panel-box">
+                <ul class="uk-nav uk-nav-side">
+                    <li class="uk-nav-header">Categories</li>
+                    <li class="uk-active"><a href="http://hendrikvanb.github.io/category/coding.html">Coding</a></li>
+                    <li class="uk-nav-header">Pages</li>
+
+                    <li >
+                        <a href="http://hendrikvanb.github.io/pages/about.html">About</a>
+                    </li>
+
+
+                    <li class="uk-nav-divider"></li>
+                    <li ><a href="http://hendrikvanb.github.io/archives.html">Archives</a></li>
+                </ul>
+            </div>
+
+            <div class="uk-panel uk-panel-box">
+                <h3 class="uk-panel-title">Receive Updates</h3>
+                <a rel="alternate" type="application/atom+xml" href="http://hendrikvanb.github.io/feeds/all.atom.xml" class="mg-feed"><i class="uk-icon-rss uk-icon-medium"></i> ATOM</a>
+            </div>
+
+            <div class="uk-panel uk-panel-box">
+                <h3 class="uk-panel-title">Contacts</h3>
+                <a class="mg-icon-link" href="#">
+                    <i class="uk-icon-You can add links in your config file uk-icon-medium"></i>
+                </a>
+                <a class="mg-icon-link" href="#">
+                    <i class="uk-icon-Another social link uk-icon-medium"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+<footer class="mg-footer">
+    <div class="uk-container uk-container-center uk-text-center">
+
+        <div class="mg-icons-small uk-subnav uk-visible-small">
+            <li><a rel="alternate" type="application/atom+xml" href="http://hendrikvanb.github.io/feeds/all.atom.xml" class="uk-icon-button uk-icon-rss"></a></li>
+            <li>
+                <a href="#" class="uk-icon-button uk-icon-You can add links in your config file"></a>
+            </li>
+            <li>
+                <a href="#" class="uk-icon-button uk-icon-Another social link"></a>
+            </li>
+        </div>
+
+        <div class="mg-author uk-panel">
+            <p></p>
+
+            <p>Powered by <a href="http://blog.getpelican.com">Pelican</a>.<br class="uk-visible-small"> Theme <a href="https://github.com/lucachr/pelican-mg">mg</a> by <a href="https://github.com/lucachr">Luca Chiricozzi</a>.</p>
+        </div>
+    </div>
+</footer>
+
+<div id="mg-offcanvas" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+
+        <form class="uk-search" action="search.html" data-uk-search>
+            <input class="uk-search-field" type="search" name="q" id="tipue_search_input" autocomplete="off" placeholder="Search...">
+        </form>
+
+        <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
+            <li class="uk-nav-header">Categories</li>
+            <li class="uk-active"><a href="http://hendrikvanb.github.io/category/coding.html">Coding</a></li>
+            <li class="uk-nav-header">Pages</li>
+            <li >
+                <a href="http://hendrikvanb.github.io/pages/about.html">About</a>
+            </li>
+
+
+            <li class="uk-nav-divider"></li>
+            <li><a href="http://hendrikvanb.github.io/">Archives</a></li>
+        </ul>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/uikit/2.23.0/js/uikit.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/uikit/2.23.0/js/components/search.min.js"></script>
+<script src="http://hendrikvanb.github.io/theme/js/tipuesearch_set.js"></script>
+<script src="http://hendrikvanb.github.io/theme/js/tipuesearch.js"></script>
+<script src="http://hendrikvanb.github.io/theme/js/jquery.sticky-kit.js"></script>
+<script src="http://hendrikvanb.github.io/theme/js/plugins.js"></script>
+<script src="http://hendrikvanb.github.io/theme/js/main-search.js"></script>
+
+
+
+</body>
+</html>
