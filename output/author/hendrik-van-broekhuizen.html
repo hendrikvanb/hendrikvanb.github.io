@@ -1220,61 +1220,62 @@ start pelserv.bat</code></pre>
 By running this batch file, I ensure that the files in the output folder are ready for publication on my GitHub repository.</li>
 </ul>
 <h2 id="Deploying-to-GitHub-branches">Deploying to GitHub branches<a class="anchor-link" href="#Deploying-to-GitHub-branches">¶</a></h2><p><strong><em>NOTE:</em></strong> <em>Much of the content in this section has been taken verbatim from <a href="https://spapas.github.io/2013/10/07/pelican-static-windows/">https://spapas.github.io/2013/10/07/pelican-static-windows/</a>.  Full credit goes to the author of this page.</em></p>
-<p>At present my GitHub repository <code>hendrikvanb.github.io</code> contains only a <code>master</code> branch.  GitHub Pages is set up in such a way that my Github page will display whatever HTML files are located in this <code>master</code> branch of the repository - i.e. <code>hendrikvanb.github.io</code> at the URL <code>hendrikvanb.github.io</code> (note that the repository name and the URL are the same!).  In other words, my goal is ultimately to get the contents for the <code>output</code> folder in my local repository to be pushed to the <code>master</code> branch of my online repository. However, I would also like to use the online repository to store the contents of my local repository under version control.  Clearly, I cannot push all of the content in <code>D:\hendrikvanb.github.io</code> to my GitHub repository as is since it will end up in the <code>master</code> branch and prevent my blog for displaying corretly.  The solution lies in creating another branch. In effect, my strategy is to use two branches on my GitHub repository:</p>
+<p>At present my GitHub repository <code>hendrikvanb.github.io</code> contains only a <code>master</code> branch.  GitHub Pages is set up in such a way that my Github page will display whatever HTML files are located in this <code>master</code> branch of the repository - i.e. <code>hendrikvanb.github.io</code> at the URL <code>hendrikvanb.github.io</code> (note that the repository name and the URL are the same!).  In other words, my goal is ultimately to get the contents for the <code>output</code> folder in my local repository to be pushed to the <code>master</code> branch of my online repository. However, I would also like to use the online repository to store the contents of my local repository under version control.  Clearly, I cannot push all of the content in <code>D:\hendrikvanb.github.io</code> to my GitHub repository as is since it will end up in the <code>master</code> branch and prevent my blog for displaying corretly.  The solution lies in creating a secondary <code>source</code> branch. In effect, my strategy is to use two branches on my GitHub repository:</p>
 <ol>
-<li><p><code>master</code>: This is where I will push all of the content in my <code>D:\hendrikvanb.github.io\output</code> folder.  Each time I update my blog (and converting it to be publication ready), I want to push the contents of this folder onto the <code>master</code> branch and replace any and all files that may already have been there before.</p>
-</li>
-<li><p><code>source</code>: This is where I will push all of the content in my <code>D:\hendrikvanb.github.io</code> local repository under version control - expect for the <code>output</code> folder!. By exploiting GitHub's version control system for the <code>source</code> branch I am effectively ensuring that I can always return to a previous rendition of my blog if I really need to.</p>
-</li>
+<li><code>source</code>: This is where I will push all of the content in my <code>D:\hendrikvanb.github.io</code> local repository under version control. By exploiting GitHub's version control system for the <code>source</code> branch I am effectively ensuring that I can always return to a previous version of my blog if I really need to. </li>
+<li><code>master</code>: This will be the default branch where I exlcusively push the contents of the remote <code>github.io\output</code> folder using the <code>subtree</code> command. </li>
 </ol>
-<h3 id="Initialising-and-populating-the-master-branch">Initialising and populating the <code>master</code> branch<a class="anchor-link" href="#Initialising-and-populating-the-master-branch">¶</a></h3><p>In order to initialise the <code>master</code> branch and populate it with the prepped contents of my local <code>output</code> folder for the first time, I need to follow several steps:</p>
+<h3 id="Initialising-and-populating-the-source-branch">Initialising and populating the <code>source</code> branch<a class="anchor-link" href="#Initialising-and-populating-the-source-branch">¶</a></h3><p>In order to initialise the <code>source</code> branch and populate it with the contents of my local <code>D:\hendrikvanb.github.io</code> respository for the first time, I now need to follow these steps:</p>
 <ol>
-<li>Open Git Bash and navigate to <code>D:/hendrikvanb.github.io/output</code></li>
-<li>Initialise this folder as a git repository</li>
-<li>Add all of the contents of the folder to the queue for commiting to GitHub</li>
-<li>Commit all of the files in the queue to GitHub (with a commit message)</li>
-<li>Setup the remote repository (i.e. online repository) that I want the local repository to communicate with</li>
-<li>Push the contents of the commit onto the <code>master</code> branch, making sure to replace all files that may already be on the <code>master</code> branch.</li>
-</ol>
-<p>To execute these 6 steps, I open <strong>Git Bash</strong> and then issue the following commands:</p>
-<pre><code>cd D:
-pushd hendrikvanb.github.io/output
-git init
-git add .
-git commit -m "Initialisation and initial population"
-git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
-git push origin master --force</code></pre>
-<p>The <code>--force</code> argument in the last line ensures that any previous versions are overwritten (since I don't care about version control on my output - only my source!)</p>
-<h3 id="Initialising-and-populating-the-source-branch">Initialising and populating the <code>source</code> branch<a class="anchor-link" href="#Initialising-and-populating-the-source-branch">¶</a></h3><p>In order to initialise the <code>source</code> branch and populate it with the contents of my local <code>D:\hendrikvanb.github.io</code> respository - but not the <code>output</code> folder -  for the first time, I now need to follow these steps:</p>
-<ol>
-<li>Create a <code>.gitignore</code> file in <code>D:\hendrikvanb.github.io</code>. To ensure that the contents of the <code>output</code> folder will be exlcuded from version control, I add the following line to the <code>.gitignore</code> file:
-<pre><code>  output</code></pre>
-</li>
 <li>Open Git Bash and navigate to <code>D:/hendrikvanb.github.io</code></li>
 <li>Initialise this folder as a git repository</li>
+<li>Rename the <code>master</code> branch to <code>source</code> </li>
 <li>Add all of the contents of the folder to the queue for commiting to GitHub</li>
 <li>Commit all of the files in the queue to GitHub (with a commit message)</li>
-<li>Rename the <code>master</code> branch to <code>source</code></li>
 <li>Setup the remote repository (i.e. online repository) that I want the local repository to communicate with</li>
 <li>Push the contents of the commit onto the <code>source</code> branch</li>
 </ol>
-<p>To execute steps 2 to 8, I open Git Bash and then issue the following commands:</p>
+<p>To execute steps 2 to 7, I open <strong>Git Bash</strong> and then issue the following commands:</p>
 <pre><code>cd D:
 pushd hendrikvanb.github.io
 git init
+git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
+git checkout -B source
 git add .
 git commit -m "Initialisation and initial population"
-git branch -m master source
-git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
 git push origin source</code></pre>
+<p>The <code>source</code> branch on the <code>hendrikvanb.github.io</code> remote repository should now reflect the contents of the contens in the <code>D:\hendrikvanb.github.io</code> local repository.</p>
+<h3 id="Initialising-and-populating-the-master-branch">Initialising and populating the <code>master</code> branch<a class="anchor-link" href="#Initialising-and-populating-the-master-branch">¶</a></h3><p>Once the <code>source</code> branch has been initialised and populated, I can create the <code>master</code> branch and populate it with the prepped contents of the <code>output</code> folder.  To do this, I need to follow these steps:</p>
+<ol>
+<li>Open Git Bash and navigate to <code>D:/hendrikvanb.github.io/output</code></li>
+<li>Create and switch to a new branch called <code>master</code></li>
+<li>Use the <code>subtree</code> command to push the contents of the <code>output</code> folder to <code>master</code>.</li>
+<li>Ensure that <code>master</code> is the default branch on my GitHub <code>hendrikvanb.github.io</code> repository</li>
+</ol>
+<p>To execute steps 1 - 3, I open Git Bash and then issue the following commands:</p>
+<pre><code>cd D:
+pushd hendrikvanb.github.io
+git checkout -B master
+git subtree push --prefix output origin master</code></pre>
+<p>For the last step, I'll navigate to <a href="https://github.com/hendrikvanb/hendrikvanb.github.io/branches">https://github.com/hendrikvanb/hendrikvanb.github.io/branches</a> in my browser and ensure that I make the <code>master</code> branch the default branch for my repository.</p>
 <h2 id="Updating-my-GitHub-Pages-blog">Updating my GitHub Pages blog<a class="anchor-link" href="#Updating-my-GitHub-Pages-blog">¶</a></h2><p>I now have two branches in my <code>hendrikvanb.github.io</code> remote repository. One is named <code>origin/master</code> which is where my actual blog will be displayed through <a href="http://hendrikvanb.github.io">http://hendrikvanb.github.io</a> and one is named <code>origin/source</code> which will contain the source of my site.</p>
-<p>Each time I want to make changes to my blog I now need to follow the following steps:</p>
+<p>If everything worked, my blog should now be up at <a href="http://hendrikvanb.github.io">http://hendrikvanb.github.io</a></p>
+<p>Each time I want to make changes to my blog I need to follow the following steps:</p>
 <ol>
 <li>Test the changes locally. If all is well, proceed to step 2 (not explicitly neccesary, but good practice)</li>
 <li>Run the <code>pelpub.bat</code> batch file to convert the blog output to be production ready</li>
 <li><code>Add</code>, <code>commit</code>, and <code>push</code> changes from <code>D:/hendrikvanb.github.io</code> to the <code>source</code> branch</li>
-<li><code>Add</code>, <code>commit</code>, and <code>push</code> changes from <code>D:/hendrikvanb.github.io/output</code> to the <code>master</code> branch</li>
+<li>Use the <code>subtree</code> command above to push the contents of the <code>output</code> folder to the <code>master</code> branch</li>
 </ol>
+<p>To execute steps 3 - 4, I open Git Bash and then issue the following commands:</p>
+<pre><code>cd D:
+pushd hendrikvanb.github.io
+git checkout source
+git add .
+git commit -m "Updated Source"
+git push origin source
+git checkout master
+git subtree push --prefix output origin master</code></pre>
 <h4 id="NOTE:-Adding,-committing,-and-pushing">NOTE: <em>Adding</em>, <em>committing</em>, and <em>pushing</em><a class="anchor-link" href="#NOTE:-Adding,-committing,-and-pushing">¶</a></h4><p>If you are a newcomer to Git (like me), you may find this to be one of the most confusing and least well-explained components of working with Git and GitHub. Fortunately, the difference between <em>add</em>, <em>commit</em>, and <em>push</em> is explained fairly well <a href="http://stackoverflow.com/questions/6143285/git-add-vs-push-vs-commit">here</a>:</p>
 <ol>
 <li><code>git add</code> adds your modified files to the queue <em>to be comitted later</em>. Files are just queued, not committed.</li>
