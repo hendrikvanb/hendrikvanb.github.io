@@ -1156,61 +1156,62 @@ start pelserv.bat&lt;/code&gt;&lt;/pre&gt;
 By running this batch file, I ensure that the files in the output folder are ready for publication on my GitHub repository.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="Deploying-to-GitHub-branches"&gt;Deploying to GitHub branches&lt;a class="anchor-link" href="#Deploying-to-GitHub-branches"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;NOTE:&lt;/em&gt;&lt;/strong&gt; &lt;em&gt;Much of the content in this section has been taken verbatim from &lt;a href="https://spapas.github.io/2013/10/07/pelican-static-windows/"&gt;https://spapas.github.io/2013/10/07/pelican-static-windows/&lt;/a&gt;.  Full credit goes to the author of this page.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;At present my GitHub repository &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; contains only a &lt;code&gt;master&lt;/code&gt; branch.  GitHub Pages is set up in such a way that my Github page will display whatever HTML files are located in this &lt;code&gt;master&lt;/code&gt; branch of the repository - i.e. &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; at the URL &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; (note that the repository name and the URL are the same!).  In other words, my goal is ultimately to get the contents for the &lt;code&gt;output&lt;/code&gt; folder in my local repository to be pushed to the &lt;code&gt;master&lt;/code&gt; branch of my online repository. However, I would also like to use the online repository to store the contents of my local repository under version control.  Clearly, I cannot push all of the content in &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; to my GitHub repository as is since it will end up in the &lt;code&gt;master&lt;/code&gt; branch and prevent my blog for displaying corretly.  The solution lies in creating another branch. In effect, my strategy is to use two branches on my GitHub repository:&lt;/p&gt;
+&lt;p&gt;At present my GitHub repository &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; contains only a &lt;code&gt;master&lt;/code&gt; branch.  GitHub Pages is set up in such a way that my Github page will display whatever HTML files are located in this &lt;code&gt;master&lt;/code&gt; branch of the repository - i.e. &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; at the URL &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; (note that the repository name and the URL are the same!).  In other words, my goal is ultimately to get the contents for the &lt;code&gt;output&lt;/code&gt; folder in my local repository to be pushed to the &lt;code&gt;master&lt;/code&gt; branch of my online repository. However, I would also like to use the online repository to store the contents of my local repository under version control.  Clearly, I cannot push all of the content in &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; to my GitHub repository as is since it will end up in the &lt;code&gt;master&lt;/code&gt; branch and prevent my blog for displaying corretly.  The solution lies in creating a secondary &lt;code&gt;source&lt;/code&gt; branch. In effect, my strategy is to use two branches on my GitHub repository:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;master&lt;/code&gt;: This is where I will push all of the content in my &lt;code&gt;D:\hendrikvanb.github.io\output&lt;/code&gt; folder.  Each time I update my blog (and converting it to be publication ready), I want to push the contents of this folder onto the &lt;code&gt;master&lt;/code&gt; branch and replace any and all files that may already have been there before.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;source&lt;/code&gt;: This is where I will push all of the content in my &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; local repository under version control - expect for the &lt;code&gt;output&lt;/code&gt; folder!. By exploiting GitHub's version control system for the &lt;code&gt;source&lt;/code&gt; branch I am effectively ensuring that I can always return to a previous rendition of my blog if I really need to.&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt;: This is where I will push all of the content in my &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; local repository under version control. By exploiting GitHub's version control system for the &lt;code&gt;source&lt;/code&gt; branch I am effectively ensuring that I can always return to a previous version of my blog if I really need to. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;master&lt;/code&gt;: This will be the default branch where I exlcusively push the contents of the remote &lt;code&gt;github.io\output&lt;/code&gt; folder using the &lt;code&gt;subtree&lt;/code&gt; command. &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id="Initialising-and-populating-the-master-branch"&gt;Initialising and populating the &lt;code&gt;master&lt;/code&gt; branch&lt;a class="anchor-link" href="#Initialising-and-populating-the-master-branch"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;In order to initialise the &lt;code&gt;master&lt;/code&gt; branch and populate it with the prepped contents of my local &lt;code&gt;output&lt;/code&gt; folder for the first time, I need to follow several steps:&lt;/p&gt;
+&lt;h3 id="Initialising-and-populating-the-source-branch"&gt;Initialising and populating the &lt;code&gt;source&lt;/code&gt; branch&lt;a class="anchor-link" href="#Initialising-and-populating-the-source-branch"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;In order to initialise the &lt;code&gt;source&lt;/code&gt; branch and populate it with the contents of my local &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; respository for the first time, I now need to follow these steps:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Open Git Bash and navigate to &lt;code&gt;D:/hendrikvanb.github.io/output&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Initialise this folder as a git repository&lt;/li&gt;
-&lt;li&gt;Add all of the contents of the folder to the queue for commiting to GitHub&lt;/li&gt;
-&lt;li&gt;Commit all of the files in the queue to GitHub (with a commit message)&lt;/li&gt;
-&lt;li&gt;Setup the remote repository (i.e. online repository) that I want the local repository to communicate with&lt;/li&gt;
-&lt;li&gt;Push the contents of the commit onto the &lt;code&gt;master&lt;/code&gt; branch, making sure to replace all files that may already be on the &lt;code&gt;master&lt;/code&gt; branch.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;To execute these 6 steps, I open &lt;strong&gt;Git Bash&lt;/strong&gt; and then issue the following commands:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd D:
-pushd hendrikvanb.github.io/output
-git init
-git add .
-git commit -m "Initialisation and initial population"
-git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
-git push origin master --force&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;code&gt;--force&lt;/code&gt; argument in the last line ensures that any previous versions are overwritten (since I don't care about version control on my output - only my source!)&lt;/p&gt;
-&lt;h3 id="Initialising-and-populating-the-source-branch"&gt;Initialising and populating the &lt;code&gt;source&lt;/code&gt; branch&lt;a class="anchor-link" href="#Initialising-and-populating-the-source-branch"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;In order to initialise the &lt;code&gt;source&lt;/code&gt; branch and populate it with the contents of my local &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; respository - but not the &lt;code&gt;output&lt;/code&gt; folder -  for the first time, I now need to follow these steps:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Create a &lt;code&gt;.gitignore&lt;/code&gt; file in &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt;. To ensure that the contents of the &lt;code&gt;output&lt;/code&gt; folder will be exlcuded from version control, I add the following line to the &lt;code&gt;.gitignore&lt;/code&gt; file:
-&lt;pre&gt;&lt;code&gt;  output&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
 &lt;li&gt;Open Git Bash and navigate to &lt;code&gt;D:/hendrikvanb.github.io&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Initialise this folder as a git repository&lt;/li&gt;
+&lt;li&gt;Rename the &lt;code&gt;master&lt;/code&gt; branch to &lt;code&gt;source&lt;/code&gt; &lt;/li&gt;
 &lt;li&gt;Add all of the contents of the folder to the queue for commiting to GitHub&lt;/li&gt;
 &lt;li&gt;Commit all of the files in the queue to GitHub (with a commit message)&lt;/li&gt;
-&lt;li&gt;Rename the &lt;code&gt;master&lt;/code&gt; branch to &lt;code&gt;source&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Setup the remote repository (i.e. online repository) that I want the local repository to communicate with&lt;/li&gt;
 &lt;li&gt;Push the contents of the commit onto the &lt;code&gt;source&lt;/code&gt; branch&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;To execute steps 2 to 8, I open Git Bash and then issue the following commands:&lt;/p&gt;
+&lt;p&gt;To execute steps 2 to 7, I open &lt;strong&gt;Git Bash&lt;/strong&gt; and then issue the following commands:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;cd D:
 pushd hendrikvanb.github.io
 git init
+git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
+git checkout -B source
 git add .
 git commit -m "Initialisation and initial population"
-git branch -m master source
-git remote add origin https://github.com/hendrikvanb/hendrikvanb.github.io.git
 git push origin source&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;source&lt;/code&gt; branch on the &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; remote repository should now reflect the contents of the contens in the &lt;code&gt;D:\hendrikvanb.github.io&lt;/code&gt; local repository.&lt;/p&gt;
+&lt;h3 id="Initialising-and-populating-the-master-branch"&gt;Initialising and populating the &lt;code&gt;master&lt;/code&gt; branch&lt;a class="anchor-link" href="#Initialising-and-populating-the-master-branch"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Once the &lt;code&gt;source&lt;/code&gt; branch has been initialised and populated, I can create the &lt;code&gt;master&lt;/code&gt; branch and populate it with the prepped contents of the &lt;code&gt;output&lt;/code&gt; folder.  To do this, I need to follow these steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open Git Bash and navigate to &lt;code&gt;D:/hendrikvanb.github.io/output&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create and switch to a new branch called &lt;code&gt;master&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Use the &lt;code&gt;subtree&lt;/code&gt; command to push the contents of the &lt;code&gt;output&lt;/code&gt; folder to &lt;code&gt;master&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Ensure that &lt;code&gt;master&lt;/code&gt; is the default branch on my GitHub &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; repository&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To execute steps 1 - 3, I open Git Bash and then issue the following commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd D:
+pushd hendrikvanb.github.io
+git checkout -B master
+git subtree push --prefix output origin master&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the last step, I'll navigate to &lt;a href="https://github.com/hendrikvanb/hendrikvanb.github.io/branches"&gt;https://github.com/hendrikvanb/hendrikvanb.github.io/branches&lt;/a&gt; in my browser and ensure that I make the &lt;code&gt;master&lt;/code&gt; branch the default branch for my repository.&lt;/p&gt;
 &lt;h2 id="Updating-my-GitHub-Pages-blog"&gt;Updating my GitHub Pages blog&lt;a class="anchor-link" href="#Updating-my-GitHub-Pages-blog"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I now have two branches in my &lt;code&gt;hendrikvanb.github.io&lt;/code&gt; remote repository. One is named &lt;code&gt;origin/master&lt;/code&gt; which is where my actual blog will be displayed through &lt;a href="http://hendrikvanb.github.io"&gt;http://hendrikvanb.github.io&lt;/a&gt; and one is named &lt;code&gt;origin/source&lt;/code&gt; which will contain the source of my site.&lt;/p&gt;
-&lt;p&gt;Each time I want to make changes to my blog I now need to follow the following steps:&lt;/p&gt;
+&lt;p&gt;If everything worked, my blog should now be up at &lt;a href="http://hendrikvanb.github.io"&gt;http://hendrikvanb.github.io&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Each time I want to make changes to my blog I need to follow the following steps:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Test the changes locally. If all is well, proceed to step 2 (not explicitly neccesary, but good practice)&lt;/li&gt;
 &lt;li&gt;Run the &lt;code&gt;pelpub.bat&lt;/code&gt; batch file to convert the blog output to be production ready&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Add&lt;/code&gt;, &lt;code&gt;commit&lt;/code&gt;, and &lt;code&gt;push&lt;/code&gt; changes from &lt;code&gt;D:/hendrikvanb.github.io&lt;/code&gt; to the &lt;code&gt;source&lt;/code&gt; branch&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Add&lt;/code&gt;, &lt;code&gt;commit&lt;/code&gt;, and &lt;code&gt;push&lt;/code&gt; changes from &lt;code&gt;D:/hendrikvanb.github.io/output&lt;/code&gt; to the &lt;code&gt;master&lt;/code&gt; branch&lt;/li&gt;
+&lt;li&gt;Use the &lt;code&gt;subtree&lt;/code&gt; command above to push the contents of the &lt;code&gt;output&lt;/code&gt; folder to the &lt;code&gt;master&lt;/code&gt; branch&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;To execute steps 3 - 4, I open Git Bash and then issue the following commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd D:
+pushd hendrikvanb.github.io
+git checkout source
+git add .
+git commit -m "Updated Source"
+git push origin source
+git checkout master
+git subtree push --prefix output origin master&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id="NOTE:-Adding,-committing,-and-pushing"&gt;NOTE: &lt;em&gt;Adding&lt;/em&gt;, &lt;em&gt;committing&lt;/em&gt;, and &lt;em&gt;pushing&lt;/em&gt;&lt;a class="anchor-link" href="#NOTE:-Adding,-committing,-and-pushing"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;If you are a newcomer to Git (like me), you may find this to be one of the most confusing and least well-explained components of working with Git and GitHub. Fortunately, the difference between &lt;em&gt;add&lt;/em&gt;, &lt;em&gt;commit&lt;/em&gt;, and &lt;em&gt;push&lt;/em&gt; is explained fairly well &lt;a href="http://stackoverflow.com/questions/6143285/git-add-vs-push-vs-commit"&gt;here&lt;/a&gt;:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;git add&lt;/code&gt; adds your modified files to the queue &lt;em&gt;to be comitted later&lt;/em&gt;. Files are just queued, not committed.&lt;/li&gt;
